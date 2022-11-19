@@ -100,13 +100,33 @@ let dataGlasses = [
 let renderGlass = () => {
   let content = "";
   for (let i = 0; i < dataGlasses.length; i++) {
-    content += `<div class = "img-container col-4" onclick = "renderApplyGlass(${dataGlasses[i].src})"><img class = "img-glass" src = "${dataGlasses[i].src}"></div>`;
+    content += `
+  <div class = "img-container col-4" onclick="addItem(${i})"><img class = "img-glass" src = "${dataGlasses[i].src}"></div>
+    `;
   }
   document.getElementById("vglassesList").innerHTML = content;
 };
+
 window.onload = () => {
   renderGlass();
 };
-let renderApplyGlass = (src) => {
-  console.log(src);
+
+const addItem = (pos) => {
+  var content = `<div><img src = "${dataGlasses[pos].virtualImg}"></div>`;
+  console.log(content);
+  document.getElementById("avatar").innerHTML = content;
+  renderInfo(pos);
+};
+
+let renderInfo = (pos) => {
+  let content = `
+    <div><h3>${dataGlasses[pos].name} - ${dataGlasses[pos].brand} (${dataGlasses[pos].color})</h1></div>
+    <div>
+      <button class = "btn btn-danger">$${dataGlasses[pos].price}</button>
+      <span>stocking</span>
+    </div>
+    <div>${dataGlasses[pos].description}</div>
+    `;
+  document.getElementById("glassesInfo").innerHTML = content;
+  document.getElementById("glassesInfo").style.display = "block";
 };
